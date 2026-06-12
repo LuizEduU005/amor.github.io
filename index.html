@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Para Rhoane Hadassa 💕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --rose:      #C2185B;
+      --rose-soft: #F8BBD9;
+      --wine:      #880E4F;
+      --cream:     #FFF8F9;
+      --gold:      #D4A853;
+      --text-dark: #3A1020;
+      --text-mid:  #7B3355;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ── CANVAS DE CORAÇÕES ── */
+    #hearts-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(160deg, #fff0f5 0%, #fce4ec 60%, #f8bbd0 100%);
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.75rem, 2vw, 0.9rem);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 1rem;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 9vw, 6.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      color: var(--wine);
+    }
+
+    .hero-title span {
+      color: var(--rose);
+      font-style: italic;
+    }
+
+    .hero-heart {
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      margin: 1.2rem 0 0.5rem;
+      animation: heartbeat 1.6s ease-in-out infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      14%       { transform: scale(1.18); }
+      28%       { transform: scale(1); }
+      42%       { transform: scale(1.12); }
+      70%       { transform: scale(1); }
+    }
+
+    .hero-sub {
+      font-size: clamp(0.85rem, 2.5vw, 1rem);
+      color: var(--text-mid);
+      margin-top: 0.8rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-mid);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      animation: fadeInUp 1s 2s both;
+    }
+
+    .scroll-hint::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--rose), transparent);
+      animation: lineGrow 1.4s ease-in-out infinite;
+    }
+
+    @keyframes lineGrow {
+      0%, 100% { transform: scaleY(0); transform-origin: top; opacity: 0; }
+      50%       { transform: scaleY(1); opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translate(-50%, 10px); }
+      to   { opacity: 1; transform: translate(-50%, 0); }
+    }
+
+    /* ── CARTA ── */
+    .section {
+      position: relative;
+      z-index: 1;
+      padding: 5rem 1.5rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--rose);
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+    }
+
+    .letter-card {
+      background: #fff;
+      border-left: 4px solid var(--rose);
+      border-radius: 2px 16px 16px 2px;
+      padding: 2.5rem 2.8rem;
+      box-shadow: 0 8px 40px rgba(194,24,91,0.08);
+      position: relative;
+    }
+
+    .letter-card::before {
+      content: '\201C';
+      font-family: 'Playfair Display', serif;
+      font-size: 8rem;
+      color: var(--rose-soft);
+      position: absolute;
+      top: -1.2rem;
+      left: 1.5rem;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .letter-text {
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      line-height: 1.85;
+      color: var(--text-dark);
+      font-weight: 300;
+      position: relative;
+      z-index: 1;
+    }
+
+    .letter-sign {
+      margin-top: 2rem;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: var(--rose);
+      font-size: 1.2rem;
+    }
+
+    /* ── DIVISOR ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--rose-soft), transparent);
+    }
+    .divider-icon { color: var(--rose); font-size: 1.2rem; }
+
+    /* ── GALERIA ── */
+    .gallery-section {
+      position: relative;
+      z-index: 1;
+      padding: 4rem 1.5rem 5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .gallery-section .section-label { text-align: center; }
+
+    .gallery-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      color: var(--wine);
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 1rem;
+    }
+
+    .gallery-grid .photo-item:nth-child(4) { grid-column: 1 / 2; }
+    .gallery-grid .photo-item:nth-child(5) { grid-column: 2 / 4; }
+
+    .photo-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      aspect-ratio: 1 / 1;
+      background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+      box-shadow: 0 4px 20px rgba(136,14,79,0.12);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .photo-item:nth-child(5) { aspect-ratio: 2 / 1; }
+
+    .photo-item:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 12px 40px rgba(136,14,79,0.22); }
+
+    .photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .photo-item:hover img { transform: scale(1.06); }
+
+    .photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(136,14,79,0.7) 0%, transparent 60%);
+      display: flex;
+      align-items: flex-end;
+      padding: 1rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .photo-item:hover .photo-overlay { opacity: 1; }
+
+    .photo-hint {
+      color: #fff;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    /* placeholder quando sem imagem */
+    .photo-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: var(--rose);
+      font-size: 0.85rem;
+      text-align: center;
+      padding: 1rem;
+      background: linear-gradient(135deg, #fce4ec 0%, #fff0f5 100%);
+    }
+
+    .photo-placeholder .ph-icon { font-size: 2rem; opacity: 0.5; }
+    .photo-placeholder span { opacity: 0.7; font-size: 0.75rem; }
+
+    /* ── VÍDEO ── */
+    .video-section {
+      position: relative;
+      z-index: 1;
+      padding: 1rem 1.5rem 5rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .video-section .section-label { text-align: center; }
+    .video-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      color: var(--wine);
+      text-align: center;
+      margin-bottom: 1.8rem;
+    }
+
+    .video-wrapper {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(136,14,79,0.15);
+      background: #000;
+      aspect-ratio: 16/9;
+      position: relative;
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .video-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+      color: var(--wine);
+    }
+
+    .video-placeholder .vp-icon { font-size: 3rem; opacity: 0.5; }
+    .video-placeholder p { font-size: 0.85rem; opacity: 0.7; }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(60, 0, 30, 0.75);
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .modal-overlay.active { display: flex; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .modal-box {
+      background: #fff;
+      border-radius: 20px;
+      max-width: 520px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 80px rgba(136,14,79,0.3);
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to   { transform: translateY(0); opacity: 1; }
+    }
+
+    .modal-img-wrap {
+      width: 100%;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .modal-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .modal-body {
+      padding: 2rem 2.2rem 2.2rem;
+    }
+
+    .modal-caption {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+      line-height: 1.75;
+      color: var(--text-dark);
+      font-style: italic;
+    }
+
+    .modal-close {
+      display: block;
+      margin: 1.5rem auto 0;
+      padding: 0.65rem 2rem;
+      background: var(--rose);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .modal-close:hover { background: var(--wine); }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 3rem 1.5rem;
+      background: linear-gradient(to top, #fce4ec, transparent);
+      color: var(--text-mid);
+      font-size: 0.85rem;
+      font-weight: 300;
+    }
+
+    footer strong { color: var(--rose); font-weight: 700; }
+
+    /* ── RESPONSIVO ── */
+    @media (max-width: 600px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-grid .photo-item:nth-child(5) { grid-column: 1 / 3; }
+      .letter-card { padding: 1.8rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="hearts-canvas"></canvas>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">✦ 12 de Junho · Dia dos Namorados ✦</p>
+  <h1 class="hero-title">Para <span>Rhoane<br>Hadassa</span></h1>
+  <div class="hero-heart">💕</div>
+  <p class="hero-sub">2 anos juntos &nbsp;·&nbsp; e muitos mais pela frente</p>
+  <div class="scroll-hint">role para baixo</div>
+</section>
+
+<!-- CARTA -->
+<div class="section">
+  <p class="section-label">✦ Uma carta de amor</p>
+  <div class="letter-card">
+    <p class="letter-text">
+      Meu amor, 2 anos ajuntados! Como o tempo passa rápido... Passamos por altos e baixos em nossas vidas, mas estamos sempre juntos, nos apoiando. Eu nunca imaginaria que encontraria uma pessoa tão incrível como você. Agradeço muito por você ser essa pessoa paciente, calma <em>(nem tanto!)</em> e amorosa comigo, por entender meus autismos e me apoiar sempre em tudo.
+      <br><br>
+      Eu amo você, amo muito você!
+    </p>
+    <p class="letter-sign">Com todo meu amor 💕</p>
+  </div>
+</div>
+
+<div class="divider"><span class="divider-icon">♥</span></div>
+
+<!-- GALERIA -->
+<div class="gallery-section">
+  <p class="section-label">✦ Nossas memórias</p>
+  <div class="gallery-grid" id="gallery"></div>
+</div>
+
+<div class="divider"><span class="divider-icon">♥</span></div>
+
+<!-- VÍDEO -->
+<div class="video-section">
+  <p class="section-label">✦ Um momento especial</p>
+  <div class="video-wrapper" id="videoWrapper">
+    <div class="video-placeholder">
+      <span class="vp-icon">🎬</span>
+      <p>Coloque seu vídeo na pasta do projeto com o nome <strong>video.mp4</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <div class="modal-img-wrap"><img id="modalImg" src="" alt="" /></div>
+    <div class="modal-body">
+      <p class="modal-caption" id="modalCaption"></p>
+      <button class="modal-close" id="modalClose">Fechar ✕</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  Feito com <strong>amor</strong> para <strong>Rhoane Hadassa</strong> 💕<br>
+  <span style="opacity:.5; font-size:0.75rem;">12 de Junho · Dia dos Namorados</span>
+</footer>
+
+<script>
+  /* ── CONFIGURAÇÃO DAS FOTOS ──────────────────────────────────────────
+     Edite cada item abaixo:
+       file    → nome do arquivo na pasta do projeto (ex: "foto1.jpg")
+       caption → texto que aparece quando clica na foto
+  ──────────────────────────────────────────────────────────────────── */
+  const photos = [
+    {
+      file: "foto1.jpg",
+      caption: "Nosso primeiro role juntos"
+    },
+    {
+      file: "foto2.jpg",
+      caption: "A unica pessoa que merece ficar na frente da camisa"
+    },
+    {
+      file: "foto3.jpg",
+      caption: "Nosso primeiro Date"
+    },
+    {
+      file: "foto4.jpg",
+      caption: "As flores que voce nao esperava"
+    },
+    {
+      file: "foto5.jpg",
+      caption: "O parque que voce nao teve coragem de ir no surf!"
+    }
+  ];
+
+  /* ── VÍDEO ─────────────────────────────────────────────────────────
+     Coloque seu vídeo na pasta com o nome abaixo (ou altere o nome).
+  ──────────────────────────────────────────────────────────────────── */
+  const videoFile = "video.mp4";
+
+  /* ══════════════════════════════════════════════════════════════════
+     A PARTIR DAQUI NÃO É NECESSÁRIO EDITAR
+  ══════════════════════════════════════════════════════════════════ */
+
+  // GALERIA
+  const gallery = document.getElementById('gallery');
+  photos.forEach((p, i) => {
+    const item = document.createElement('div');
+    item.className = 'photo-item';
+    item.dataset.index = i;
+
+    const img = document.createElement('img');
+    img.src = p.file;
+    img.alt = `Foto ${i + 1}`;
+
+    img.onerror = () => {
+      item.innerHTML = `
+        <div class="photo-placeholder">
+          <span class="ph-icon">📷</span>
+          <span>foto${i+1}.jpg</span>
+          <span>Adicione a foto na pasta</span>
+        </div>`;
+      item.appendChild(overlay);
+    };
+
+    const overlay = document.createElement('div');
+    overlay.className = 'photo-overlay';
+    overlay.innerHTML = '<span class="photo-hint">clique para ver 💕</span>';
+
+    item.appendChild(img);
+    item.appendChild(overlay);
+    item.addEventListener('click', () => openModal(p));
+    gallery.appendChild(item);
+  });
+
+  // VÍDEO
+  const vw = document.getElementById('videoWrapper');
+  const vid = document.createElement('video');
+  vid.src = videoFile;
+  vid.controls = true;
+  vid.playsInline = true;
+  vid.oncanplay = () => { vw.innerHTML = ''; vw.appendChild(vid); };
+
+  // MODAL
+  const modal   = document.getElementById('modal');
+  const modalImg = document.getElementById('modalImg');
+  const modalCaption = document.getElementById('modalCaption');
+  const modalClose   = document.getElementById('modalClose');
+
+  function openModal(p) {
+    modalImg.src = p.file;
+    modalCaption.textContent = p.caption;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  // CORAÇÕES FLUTUANTES
+  const canvas = document.getElementById('hearts-canvas');
+  const ctx = canvas.getContext('2d');
+  let hearts = [];
+
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function spawnHeart() {
+    hearts.push({
+      x: Math.random() * canvas.width,
+      y: canvas.height + 20,
+      size: Math.random() * 14 + 8,
+      speed: Math.random() * 0.6 + 0.3,
+      opacity: Math.random() * 0.25 + 0.05,
+      drift: (Math.random() - 0.5) * 0.4
+    });
+  }
+
+  function drawHeart(x, y, size) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.beginPath();
+    ctx.moveTo(0, -size * 0.3);
+    ctx.bezierCurveTo( size * 0.5, -size, size, -size * 0.3, 0, size * 0.5);
+    ctx.bezierCurveTo(-size, -size * 0.3, -size * 0.5, -size, 0, -size * 0.3);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    hearts.forEach(h => {
+      ctx.globalAlpha = h.opacity;
+      ctx.fillStyle = '#C2185B';
+      drawHeart(h.x, h.y, h.size);
+      h.y -= h.speed;
+      h.x += h.drift;
+    });
+    ctx.globalAlpha = 1;
+    hearts = hearts.filter(h => h.y > -30);
+    requestAnimationFrame(animate);
+  }
+
+  setInterval(spawnHeart, 600);
+  animate();
+</script>
+</body>
+</html>
